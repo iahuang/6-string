@@ -1,0 +1,20 @@
+{
+  "name": "guitar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/jsdom": "^16.2.1",
+    "@types/lodash": "^4.14.150",
+    "@types/node": "^13.13.4",
+    "@types/node-fetch": "^2.5.7",
+    "jsdom": "^16.2.2",
+    "lodash": "^4.17.15",
+    "node-fetch": "^2.6.0"
+  }
+}

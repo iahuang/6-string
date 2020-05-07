@@ -1,0 +1,286 @@
+{
+    "mobile_device": null,
+    "show_rate_layer": false,
+    "tab": {
+        "id": 3010217,
+        "song_id": 3792137,
+        "song_name": "Run",
+        "artist_id": 67782,
+        "artist_name": "Joji",
+        "type": "Official",
+        "part": "",
+        "version": 1,
+        "votes": 60,
+        "rating": 4.78419,
+        "date": "1583240762",
+        "status": "approved",
+        "preset_id": 41567,
+        "tab_access_type": "public",
+        "tp_version": 0,
+        "tonality_name": "Em",
+        "version_description": "",
+        "verified": 0,
+        "recording": {
+            "is_acoustic": 0,
+            "tonality_name": "",
+            "performance": null,
+            "recording_artists": []
+        },
+        "artist_url": "https://www.ultimate-guitar.com/artist/joji_67782",
+        "tab_url": "https://tabs.ultimate-guitar.com/tab/joji/run-official-3010217",
+        "date_update": "1583400897",
+        "user_id": 4524856,
+        "user_iq": 30,
+        "username": "kidjust",
+        "type_name": "Official",
+        "best_pro_tab_url": "https://tabs.ultimate-guitar.com/tab/joji/run-guitar-pro-3000944"
+    },
+    "backing_track_tip": false,
+    "tab_view": {
+        "wiki_tab": {
+            "revision_id": 3,
+            "user_id": 4524856,
+            "username": "kidjust",
+            "date": 1583400897
+        },
+        "contributors": [],
+        "strummings": [],
+        "has_hq_description": 0,
+        "blocked": false,
+        "adsupp_binary_blocked": null,
+        "meta": {
+            "tonality": "Em",
+            "tuning": {
+                "name": "Standard",
+                "value": "E A D G B E",
+                "index": 1
+            },
+            "fileExtension": ".gpx",
+            "instruments": "",
+            "size": null
+        },
+        "has_official_version": true,
+        "has_chord_pro": false,
+        "has_preset": false,
+        "versions": [
+            {
+                "id": 3010217,
+                "song_id": 3792137,
+                "song_name": "Run",
+                "artist_id": 67782,
+                "artist_name": "Joji",
+                "type": "Official",
+                "part": "",
+                "version": 1,
+                "votes": 60,
+                "rating": 4.78419,
+                "date": "1583240762",
+                "status": "approved",
+                "preset_id": 41567,
+                "tab_access_type": "public",
+                "tp_version": 0,
+                "tonality_name": "Em",
+                "version_description": "",
+                "verified": 0,
+                "recording": {
+                    "is_acoustic": 0,
+                    "tonality_name": "",
+                    "performance": null,
+                    "recording_artists": []
+                },
+                "artist_url": "https://www.ultimate-guitar.com/artist/joji_67782",
+                "tab_url": "https://tabs.ultimate-guitar.com/tab/joji/run-official-3010217",
+                "date_update": "1583400897",
+                "user_id": 4524856,
+                "user_iq": 30,
+                "username": "kidjust",
+                "type_name": "Official",
+                "best_pro_tab_url": "https://tabs.ultimate-guitar.com/tab/joji/run-guitar-pro-3000944"
+            }
+        ],
+        "song_image": false,
+        "applicature": null,
+        "last_comments": [
+            {
+                "id": "6021656",
+                "rowid": "3010217",
+                "text": "absolutely fantastic. thank you very much. <;3",
+                "author_userid": "4524856",
+                "rating": "3",
+                "userid": "18301798",
+                "usergroupid": "21",
+                "username": "jordanbrook101",
+                "date_created": "1583241194",
+                "type": "4",
+                "parent_id": 0,
+                "added_from": "",
+                "updated_at": null,
+                "status": "new",
+                "moderator_user_id": "11009608",
+                "likes_count": "3",
+                "dislikes_count": "0",
+                "contributor_level": "1",
+                "avatar": "https://tabs.ultimate-guitar.com/static/users/8/9/7/18301798.gif?d=d",
+                "date": 1583241194,
+                "user_iq": 92,
+                "level": 0
+            },
+            {
+                "id": "6021662",
+                "rowid": "3010217",
+                "text": "You're welcome! Enjoy! ♥",
+                "author_userid": "4524856",
+                "rating": "0",
+                "userid": "19790006",
+                "usergroupid": "26",
+                "username": "alatiel321",
+                "date_created": "1583241726",
+                "type": "4",
+                "parent_id": 6021656,
+                "added_from": "",
+                "updated_at": null,
+                "status": "new",
+                "moderator_user_id": "11009608",
+                "likes_count": "1",
+                "dislikes_count": "1",
+                "contributor_level": "5",
+                "avatar": "https://tabs.ultimate-guitar.com/static/users/6/0/0/19790006.gif?d=d",
+                "date": 1583241726,
+                "user_iq": 30773,
+                "level": 1
+            },
+            {
+                "id": "6021746",
+                "rowid": "3010217",
+                "text": "I can't wait to play this once I get home! Thanks for your awesome work.",
+                "author_userid": "4524856",
+                "rating": "6",
+                "userid": "25595949",
+                "usergroupid": "12",
+                "username": "Carsonogen",
+                "date_created": "1583247653",
+                "type": "4",
+                "parent_id": 0,
+                "added_from": "",
+                "updated_at": null,
+                "status": "new",
+                "moderator_user_id": "11009608",
+                "likes_count": "6",
+                "dislikes_count": "0",
+                "contributor_level": null,
+                "avatar": "https://tabs.ultimate-guitar.com/static/users/9/4/9/25595949.gif?d=d",
+                "date": 1583247653,
+                "user_iq": 20,
+                "level": 0
+            }
+        ],
+        "comments": 7,
+        "stats": { "view_total": "3805", "favorites_count": "732" },
+        "tab_corrects": [],
+        "is_simplify_available": false,
+        "can_edit_tab": false,
+        "can_edit_strumming": false,
+        "can_send_tab_stats": true,
+        "official_backingtrack": {
+            "id": 80711,
+            "content_urls": [
+                {
+                    "name": "Bass Guitar",
+                    "content_urls": {
+                        "normal": "https://tabs.ultimate-guitar.com/static/backingtracks/multitracks/normal/0/00a6efbf6dc040c9e096b70a966dc80d956285b3.mp3?v=1583240769",
+                        "preview": "https://tabs.ultimate-guitar.com/static/backingtracks/multitracks/preview/0/00a6efbf6dc040c9e096b70a966dc80d956285b3.mp3?v=1583240769"
+                    }
+                },
+                {
+                    "name": "Choir",
+                    "content_urls": {
+                        "normal": "https://tabs.ultimate-guitar.com/static/backingtracks/multitracks/normal/6/6a28308c7dc315185d2957f3159e63755f9db39a.mp3?v=1583240772",
+                        "preview": "https://tabs.ultimate-guitar.com/static/backingtracks/multitracks/preview/6/6a28308c7dc315185d2957f3159e63755f9db39a.mp3?v=1583240772"
+                    }
+                },
+                {
+                    "name": "Drums",
+                    "content_urls": {
+                        "normal": "https://tabs.ultimate-guitar.com/static/backingtracks/multitracks/normal/5/5a83bda5a98eece774ec59c15ec09bb9dfd6c958.mp3?v=1583240779",
+                        "preview": "https://tabs.ultimate-guitar.com/static/backingtracks/multitracks/preview/5/5a83bda5a98eece774ec59c15ec09bb9dfd6c958.mp3?v=1583240779"
+                    }
+                },
+                {
+                    "name": "Rhythm Guitar",
+                    "content_urls": {
+                        "normal": "https://tabs.ultimate-guitar.com/static/backingtracks/multitracks/normal/2/298887f6e1028ea02eb85f21bb44e375bad6070c.mp3?v=1583240780",
+                        "preview": "https://tabs.ultimate-guitar.com/static/backingtracks/multitracks/preview/2/298887f6e1028ea02eb85f21bb44e375bad6070c.mp3?v=1583240780"
+                    }
+                },
+                {
+                    "name": "Rock Organ",
+                    "content_urls": {
+                        "normal": "https://tabs.ultimate-guitar.com/static/backingtracks/multitracks/normal/7/704da226e2ad9b59e08a8d3ce090e4e1d91f440e.mp3?v=1583240782",
+                        "preview": "https://tabs.ultimate-guitar.com/static/backingtracks/multitracks/preview/7/704da226e2ad9b59e08a8d3ce090e4e1d91f440e.mp3?v=1583240782"
+                    }
+                },
+                {
+                    "name": "Solo Guitar",
+                    "content_urls": {
+                        "normal": "https://tabs.ultimate-guitar.com/static/backingtracks/multitracks/normal/7/7bf2e02ac7d457a1a1f69f923d3bc31b2ddc2312.mp3?v=1583240783",
+                        "preview": "https://tabs.ultimate-guitar.com/static/backingtracks/multitracks/preview/7/7bf2e02ac7d457a1a1f69f923d3bc31b2ddc2312.mp3?v=1583240783"
+                    }
+                },
+                {
+                    "name": "Synth Bass",
+                    "content_urls": {
+                        "normal": "https://tabs.ultimate-guitar.com/static/backingtracks/multitracks/normal/4/4bc4509e6dd710133ac8e03f1df899464b146b8f.mp3?v=1583240787",
+                        "preview": "https://tabs.ultimate-guitar.com/static/backingtracks/multitracks/preview/4/4bc4509e6dd710133ac8e03f1df899464b146b8f.mp3?v=1583240787"
+                    }
+                },
+                {
+                    "name": "Synth Lead",
+                    "content_urls": {
+                        "normal": "https://tabs.ultimate-guitar.com/static/backingtracks/multitracks/normal/1/1521fe6011daebb7b74e06706726ac94900962f7.mp3?v=1583240789",
+                        "preview": "https://tabs.ultimate-guitar.com/static/backingtracks/multitracks/preview/1/1521fe6011daebb7b74e06706726ac94900962f7.mp3?v=1583240789"
+                    }
+                },
+                {
+                    "name": "Synth Pad 1",
+                    "content_urls": {
+                        "normal": "https://tabs.ultimate-guitar.com/static/backingtracks/multitracks/normal/8/8d2e6f7a16eb398a2652f65de4dc085cd9f43fc3.mp3?v=1583240795",
+                        "preview": "https://tabs.ultimate-guitar.com/static/backingtracks/multitracks/preview/8/8d2e6f7a16eb398a2652f65de4dc085cd9f43fc3.mp3?v=1583240795"
+                    }
+                },
+                {
+                    "name": "Synth Pad 2",
+                    "content_urls": {
+                        "normal": "https://tabs.ultimate-guitar.com/static/backingtracks/multitracks/normal/5/5f28caef482d9ffa5e3d29652c46d833bd755ded.mp3?v=1583240799",
+                        "preview": "https://tabs.ultimate-guitar.com/static/backingtracks/multitracks/preview/5/5f28caef482d9ffa5e3d29652c46d833bd755ded.mp3?v=1583240799"
+                    }
+                }
+            ]
+        },
+        "tab_search_link": "https://www.ultimate-guitar.com/search.php?band_name=Joji&song_name=run&type%5B0%5D=200&type%5B1%5D=300",
+        "wiki_tab_user_group_id": 26,
+        "wiki_tab_user_iq": 30,
+        "user_group_id": 26,
+        "count_rating": 60,
+        "encode_strummings": "",
+        "alert": null,
+        "recommendations": [],
+        "official_backingtrack_url": null,
+        "official_tab_url": null,
+        "official_tab_want": null,
+        "tab_manually_highlighted": false,
+        "pro_tab_onbording": null,
+        "smart_auto_scroll_available": false,
+        "lyrics_lines": []
+    },
+    "access": {
+        "can_edit_tab": false,
+        "can_edit_strumming": false,
+        "can_delete_comment": false,
+        "can_manage_rating": false,
+        "can_vote_strumming": true
+    },
+    "recommended_tabs": [],
+    "recentry_viewed_key": "tab:3010217",
+    "criticals": [],
+    "survey": null
+}
