@@ -1,18 +1,18 @@
 :root {
     --bg: #1a222b;
     --bg2: #2f3c49;
-    --bg3: #38495a;
-    --text: #F9F8F8;
-    --text2:rgb(192, 192, 192);
-    --text3:rgb(146, 146, 146);
-    --color1: #F3DE8A;
-    --color2: #EB9486;
+    --bg3: #171f27;
+    --text: #f9f8f8;
+    --text2: rgb(214, 214, 214);
+    --text3: rgb(185, 180, 180);
+    --color1: #f3de8a;
+    --color2: #eb9486;
 }
 
 body {
     margin: 0;
     background-color: var(--bg);
-    color: var(--text);
+    color: var(--text2);
     font-family: sans-serif;
     text-align: center;
 }
@@ -37,6 +37,7 @@ input {
     padding-left: 10px;
     padding-right: 10px;
     font-size: 16pt;
+    border: transparent 1px solid;
     width: 400px;
 }
 
@@ -50,6 +51,18 @@ input::placeholder {
 
 p {
     color: var(--text2);
+}
+
+.color-1 {
+    color: var(--color1);
+}
+
+.color-2 {
+    color: var(--color2);
+}
+
+.diminished {
+    color: var(--text3);
 }
 
 .app {
@@ -78,8 +91,9 @@ p {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    box-shadow: 0px 6px 12px 0px rgba(0,0,0,0.4);
-
+    box-shadow: 0px 6px 12px 0px rgba(0, 0, 0, 0.4);
+    position: absolute;
+    background-color: var(--bg);
 }
 
 .suggestions > span {
@@ -92,4 +106,40 @@ p {
 }
 .suggestions > span:hover {
     background-color: var(--bg2);
+}
+
+.search-result-box {
+    display: grid;
+    grid-template-columns: auto 200px;
+    border: 1px rgba(0, 0, 0, 0.158) solid;
+    box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+    margin-top: 10px;
+    width: 50vw;
+}
+
+a {
+    text-decoration: none;
+}
+
+.search-result-song-info {
+    text-align: start;
+    padding: 20px;
+}
+
+.search-result-categories {
+    display: flex;
+    flex-direction: column;
+    border-left: 1px rgba(0, 0, 0, 0.158) solid;
+    background-color: var(--bg3);
+}
+
+.search-result-categories > a {
+    border-bottom: 1px rgba(0, 0, 0, 0.158) solid;
+    border-top: 1px rgba(0, 0, 0, 0.158) solid;
+    padding: 10px;
+}
+
+.search-result-categories > a:hover {
+    background-color: var(--bg);
 }

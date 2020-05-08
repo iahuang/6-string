@@ -1,0 +1,7 @@
+{
+    "name": "awesome",
+    "author": "Vandelay Industries",
+    "version": "1.0.0",
+    "main": "./main.js",
+    "types": "./search.d.ts"
+}

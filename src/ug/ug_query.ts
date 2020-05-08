@@ -43,16 +43,6 @@ export async function getAllArtists() {
     return artists;
 }
 
-interface SongResult {
-    songName: string;
-    artistName: string;
-    artistUrl: string;
-    categories: { category: string; url: string }[];
-}
-interface ProcessedSearchResults {
-    results: SongResult[];
-}
-
 function processSearchResults(
     pageData: GeneralSearch.SearchData
 ): ProcessedSearchResults {
