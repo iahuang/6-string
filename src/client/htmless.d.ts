@@ -115,7 +115,7 @@ declare class InlineComponent extends Component {
 declare let inlineComponent: (f: () => HLElement) => InlineComponent;
 
 interface Object {
-    entries(): [string, any][];
+    entries<T>(): [string, T][];
 }
 declare class FlexboxConfig {
     direction: string;
@@ -210,4 +210,3 @@ declare class HLHyperlinkElement extends HLElement {
     download(value: string): this;
     target(where: string): this;
 }
-//# sourceMappingURL=htmless.d.ts.map
