@@ -42,7 +42,22 @@ export async function getAllArtists() {
     return artists;
 }
 
-function processSearchResults(pageData: GeneralSearch.SearchData) {
+interface SongResult {
+    songName: string;
+    artistName: string;
+    artistUrl: string;
+    categories: { category: string; url: string }[];
+}
+interface ProcessedSearchResults {
+    results: SongResult[];
+}
+
+function processSearchResults(
+    pageData: GeneralSearch.SearchData
+): ProcessedSearchResults {
+
+    // this function is a mess
+
     /*
         example data for "songs" with query "never gonna":
         
@@ -70,6 +85,14 @@ function processSearchResults(pageData: GeneralSearch.SearchData) {
         [name: string]: { [category: string]: GeneralSearch.Result[] };
     } = {};
 
+    let songInfo: {
+        [name: string]: {
+            artistName: string;
+            songName: string;
+            artistUrl: string;
+        };
+    } = {};
+
     for (let result of pageData.results) {
         if (result.marketing_type) {
             // skip the "official" tabs
@@ -85,35 +108,54 @@ function processSearchResults(pageData: GeneralSearch.SearchData) {
         }
 
         songs[songIdentifier][result.type!].push(result);
+
+        songInfo[songIdentifier] = {
+            artistName: result.artist_name,
+            songName: result.song_name,
+            artistUrl: result.artist_url,
+        };
     }
 
-    // prune each song category to contain only the highest rated tab
+    let output: ProcessedSearchResults = {
+        results: [],
+    };
 
-    for (let [song, categories] of Object.entries(songs)) {
+    // get the highest rated song of each category and add it to the final output
+
+    for (let [songIdentifier, categories] of Object.entries(songs)) {
+        let song = songInfo[songIdentifier];
+
+        let songResult: SongResult = {
+            songName: song.songName,
+            artistName: song.artistName,
+            artistUrl: song.artistUrl,
+            categories: [],
+        };
+
         for (let category of Object.keys(categories)) {
             let bestTabInCategory = _.maxBy(
                 categories[category],
                 (result) => result.rating!
-            );
-            // hack to reformat the songs variable where the category value is just the url of the highest rated tab
-            (categories[category] as any) = bestTabInCategory!.tab_url;
+            )!;
+
+            songResult.categories.push({
+                category: category,
+                url: bestTabInCategory.tab_url
+            })
         }
+
+        output.results.push(songResult);
     }
 
-    // this is the new format for songs
-    type newSongsFormat = {
-        [name: string]: { [category: string]: string };
-    };
-
-    return songs as unknown as newSongsFormat;
-    
+    return output;
 }
 
 export async function search(query: string, page: number) {
-    let pageData = await loadStoreData(
-        `https://www.ultimate-guitar.com/search.php?search_type=title&value=${encodeURI(
-            query
-        )}&page=${page}`
+    return processSearchResults(
+        await loadStoreData(
+            `https://www.ultimate-guitar.com/search.php?search_type=title&value=${encodeURI(
+                query
+            )}&page=${page}`
+        )
     );
-    fs.writeFileSync("test.json", JSON.stringify(processSearchResults(pageData)));
 }

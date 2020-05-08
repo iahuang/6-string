@@ -12,7 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const fs_1 = __importDefault(require("fs"));
 const ug_1 = require("./ug");
 const lodash_1 = __importDefault(require("lodash"));
 function artistSearch(letter, page) {
@@ -47,6 +46,7 @@ function getAllArtists() {
 }
 exports.getAllArtists = getAllArtists;
 function processSearchResults(pageData) {
+    // this function is a mess
     /*
         example data for "songs" with query "never gonna":
         
@@ -71,6 +71,7 @@ function processSearchResults(pageData) {
         }
     */
     let songs = {};
+    let songInfo = {};
     for (let result of pageData.results) {
         if (result.marketing_type) {
             // skip the "official" tabs
@@ -84,21 +85,38 @@ function processSearchResults(pageData) {
             songs[songIdentifier][result.type] = [];
         }
         songs[songIdentifier][result.type].push(result);
+        songInfo[songIdentifier] = {
+            artistName: result.artist_name,
+            songName: result.song_name,
+            artistUrl: result.artist_url,
+        };
     }
-    // prune each song category to contain only the highest rated tab
-    for (let [song, categories] of Object.entries(songs)) {
+    let output = {
+        results: [],
+    };
+    // get the highest rated song of each category and add it to the final output
+    for (let [songIdentifier, categories] of Object.entries(songs)) {
+        let song = songInfo[songIdentifier];
+        let songResult = {
+            songName: song.songName,
+            artistName: song.artistName,
+            artistUrl: song.artistUrl,
+            categories: [],
+        };
         for (let category of Object.keys(categories)) {
             let bestTabInCategory = lodash_1.default.maxBy(categories[category], (result) => result.rating);
-            // hack to reformat the songs variable where the category value is just the url of the highest rated tab
-            categories[category] = bestTabInCategory.tab_url;
+            songResult.categories.push({
+                category: category,
+                url: bestTabInCategory.tab_url
+            });
         }
+        output.results.push(songResult);
     }
-    return songs;
+    return output;
 }
 function search(query, page) {
     return __awaiter(this, void 0, void 0, function* () {
-        let pageData = yield ug_1.loadStoreData(`https://www.ultimate-guitar.com/search.php?search_type=title&value=${encodeURI(query)}&page=${page}`);
-        fs_1.default.writeFileSync("test.json", JSON.stringify(processSearchResults(pageData)));
+        return processSearchResults(yield ug_1.loadStoreData(`https://www.ultimate-guitar.com/search.php?search_type=title&value=${encodeURI(query)}&page=${page}`));
     });
 }
 exports.search = search;
