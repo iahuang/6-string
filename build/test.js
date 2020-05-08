@@ -1,4 +1,4 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const ug_query_1 = require("./ug/ug_query");
-ug_query_1.search("never gonna", 1);
+const chord_utils_1 = require("./chord_utils");
+console.log(chord_utils_1.autoTransposeChords(["B", "C#", "F#", "Bm", "E", "G#"]));

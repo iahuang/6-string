@@ -106,6 +106,9 @@ class HLElement {
         }
         // Build content
         for (let child of this.children) {
+            if (child === null) {
+                continue;
+            }
             let childNode = htmless.valueToNode(child);
             htmlElement.appendChild(childNode);
         }
@@ -358,14 +361,6 @@ class InlineComponent extends Component {
     }
 }
 let inlineComponent = htmless.inlineComponent.bind(htmless);
-if (!Object.entries) {
-    Object.entries = function (obj) {
-        var ownProps = Object.keys(obj), i = ownProps.length, resArray = new Array(i); // preallocate the Array
-        while (i--)
-            resArray[i] = [ownProps[i], obj[ownProps[i]]];
-        return resArray;
-    };
-}
 Object.prototype.entries = function () {
     return Object.entries(this);
 };

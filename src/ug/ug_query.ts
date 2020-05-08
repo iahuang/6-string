@@ -1,6 +1,7 @@
 import fs from "fs";
 import { ArtistSearch, GeneralSearch } from "./ug_searchdata_interfaces";
 import { loadStoreData } from "./ug";
+import fetch from "node-fetch";
 import _ from "lodash";
 
 export async function artistSearch(letter: string, page: number) {
@@ -55,7 +56,6 @@ interface ProcessedSearchResults {
 function processSearchResults(
     pageData: GeneralSearch.SearchData
 ): ProcessedSearchResults {
-
     // this function is a mess
 
     /*
@@ -140,8 +140,8 @@ function processSearchResults(
 
             songResult.categories.push({
                 category: category,
-                url: bestTabInCategory.tab_url
-            })
+                url: bestTabInCategory.tab_url,
+            });
         }
 
         output.results.push(songResult);
@@ -158,4 +158,31 @@ export async function search(query: string, page: number) {
             )}&page=${page}`
         )
     );
+}
+
+export async function searchAutocomplete(query: string) {
+    /* Returns Ultimate Guitar's search suggestion for the given query */
+
+    // ultimate guitar does this really weirdly idk what the devs were on when they made this system
+
+    if (!query) {
+        return [];
+    }
+
+    query = query.trim();
+    let queryFile = query.replace(" ", "_").substring(0, 5) + ".js";
+
+    let response = await fetch(
+        `https://tabs.ultimate-guitar.com/static/article/suggestions/${query[0]}/${queryFile}`
+    );
+
+    if (response.ok) {
+        // get pranked it's not really a js file it's just some json data ????
+        let allSuggestions: string[] = (await response.json()).suggestions;
+        return allSuggestions.filter((suggestion) =>
+            suggestion.startsWith(query)
+        );
+    } else {
+        return [];
+    }
 }

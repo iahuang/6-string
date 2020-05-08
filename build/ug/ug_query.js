@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const ug_1 = require("./ug");
+const node_fetch_1 = __importDefault(require("node-fetch"));
 const lodash_1 = __importDefault(require("lodash"));
 function artistSearch(letter, page) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -107,7 +108,7 @@ function processSearchResults(pageData) {
             let bestTabInCategory = lodash_1.default.maxBy(categories[category], (result) => result.rating);
             songResult.categories.push({
                 category: category,
-                url: bestTabInCategory.tab_url
+                url: bestTabInCategory.tab_url,
             });
         }
         output.results.push(songResult);
@@ -120,3 +121,24 @@ function search(query, page) {
     });
 }
 exports.search = search;
+function searchAutocomplete(query) {
+    return __awaiter(this, void 0, void 0, function* () {
+        /* Returns Ultimate Guitar's search suggestion for the given query */
+        // ultimate guitar does this really weirdly idk what the devs were on when they made this system
+        if (!query) {
+            return [];
+        }
+        query = query.trim();
+        let queryFile = query.replace(" ", "_").substring(0, 5) + ".js";
+        let response = yield node_fetch_1.default(`https://tabs.ultimate-guitar.com/static/article/suggestions/${query[0]}/${queryFile}`);
+        if (response.ok) {
+            // get pranked it's not really a js file it's just some json data ????
+            let allSuggestions = (yield response.json()).suggestions;
+            return allSuggestions.filter((suggestion) => suggestion.startsWith(query));
+        }
+        else {
+            return [];
+        }
+    });
+}
+exports.searchAutocomplete = searchAutocomplete;

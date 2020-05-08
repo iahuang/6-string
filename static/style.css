@@ -3,7 +3,7 @@
     --bg2: #2f3c49;
     --bg3: #38495a;
     --text: #F9F8F8;
-    --text2:rgb(207, 207, 207);
+    --text2:rgb(192, 192, 192);
     --text3:rgb(146, 146, 146);
     --color1: #F3DE8A;
     --color2: #EB9486;
@@ -37,6 +37,7 @@ input {
     padding-left: 10px;
     padding-right: 10px;
     font-size: 16pt;
+    width: 400px;
 }
 
 input:focus {
@@ -59,10 +60,36 @@ p {
 
 .search {
     padding: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .footer {
     color: var(--text3);
     text-align: start;
     padding: 10px;
+}
+
+.suggestions {
+    border: 1px rgba(0, 0, 0, 0.158) solid;
+    border-radius: 4px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    box-shadow: 0px 6px 12px 0px rgba(0,0,0,0.4);
+
+}
+
+.suggestions > span {
+    text-align: start;
+    color: var(--text2);
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    user-select: none;
+}
+.suggestions > span:hover {
+    background-color: var(--bg2);
 }

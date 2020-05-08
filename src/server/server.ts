@@ -1,6 +1,6 @@
 import * as express from "express";
 import process from "process";
-import { search } from "../ug/ug_query";
+import { search, searchAutocomplete } from "../ug/ug_query";
 
 export class SixString {
     app: express.Express;
@@ -16,9 +16,13 @@ export class SixString {
         this.app.use(express.static(this.staticDir));
 
         // init api endpoints
-        this.app.get("/api/search", async (req, res) => {
-            let searchResults = await search(req.query["query"] as string, 1);
-            res.send(searchResults);
+        this.apiGetEndpoint("search", (query) => {
+            let searchResults = search(query.query, 1);
+            return searchResults;
+        });
+
+        this.apiGetEndpoint("search-suggestions", (query) => {
+            return searchAutocomplete(query.query as string);
         });
     }
 
@@ -30,5 +34,19 @@ export class SixString {
 
     get staticDir() {
         return process.cwd() + "/static";
+    }
+
+    apiGetEndpoint(
+        endpoint: string,
+        cb: (query: any, req?: express.Request) => object
+    ) {
+        this.app.get("/api/" + endpoint, async (req, res) => {
+            let responseData = cb(req.query, req);
+            if (responseData instanceof Promise) {
+                res.json(await responseData);
+            } else {
+                res.json(responseData);
+            }
+        });
     }
 }
