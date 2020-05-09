@@ -174,9 +174,12 @@ class SearchBox extends Component {
     }
 }
 
-let app = div(
-    div(headers.h1("Ultimate Guitar"), new SearchBox()).class("search"),
-    div("This site is not affiliated with ultimate-guitar.com").class("footer")
-).class("app");
-
-document.body.appendChild(app.render());
+function runSearchPageApp() {
+    let app = div(
+        div(headers.h1("Ultimate Guitar"), new SearchBox()).class("search"),
+        div("This site is not affiliated with ultimate-guitar.com").class("footer")
+    ).class("app");
+    
+    document.body.appendChild(app.render());
+    
+}
