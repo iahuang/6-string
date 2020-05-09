@@ -82,6 +82,7 @@ class SearchBox extends Component {
             query: this.searchQuery,
             page: 1,
         }).then((val) => {
+            document.getElementById("search-result-container").innerHTML = "";
             this.addPage(val);
             this.hasSearchedYet = true;
             //htmless.rerender("search-results");
