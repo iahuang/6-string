@@ -7,6 +7,7 @@
     --text3: rgb(185, 180, 180);
     --color1: #f3de8a;
     --color2: #eb9486;
+    --hover: #3b4b5a;
 }
 
 body {
@@ -51,6 +52,27 @@ input::placeholder {
 
 p {
     color: var(--text2);
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    background-color: var(--bg2);
+    border: none;
+    border-radius: 4px;
+    color: var(--text2);
+    outline: none;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 14pt;
+    border: transparent 1px solid;
+}
+
+button:hover {
+    background-color: var(--hover);
 }
 
 .color-1 {
@@ -115,16 +137,14 @@ p {
     box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.4);
     border-radius: 4px;
     margin-top: 10px;
+    margin-bottom: 10px;
     width: 50vw;
-}
-
-a {
-    text-decoration: none;
 }
 
 .search-result-song-info {
     text-align: start;
     padding: 20px;
+    font-size: 16pt;
 }
 
 .search-result-categories {

@@ -24,6 +24,8 @@ class SearchBox extends Component {
         super();
         this.hideSearchSuggestions = false; // hide search suggestions when input is not focused
         this.hasSearchedYet = false;
+        this.searchPage = 1;
+        this.searchQuery = "";
         this.searchSuggestions = [];
     }
     renderSuggestionsBox() {
@@ -49,18 +51,41 @@ class SearchBox extends Component {
             return div(null);
         }
         if (searchResults) {
-            return div(span(`${searchResults.numberTotalResults} results found`).class("diminished"), div(...searchResults.results.map((result) => new SearchResult(result))));
+            return div(span(`${searchResults.numberTotalResults} results found`).class("diminished"), div(...searchResults.results.map((result) => new SearchResult(result))), button("load more").onClick(() => {
+                this.loadNextPageSearchResults();
+            }));
         }
         else {
             return div("No results found");
         }
     }
-    getSearchEntry() {
+    getInputValue() {
         return document.getElementById("search-box")
             .value;
     }
     setSearchEntry(to) {
         document.getElementById("search-box").value = to;
+    }
+    loadSearchResults() {
+        api_get("search", {
+            query: this.searchQuery,
+            page: 1
+        }).then((val) => {
+            searchResults = val;
+            this.hasSearchedYet = true;
+            htmless.rerender("search-results");
+        });
+    }
+    loadNextPageSearchResults() {
+        this.searchPage += 1;
+        api_get("search", {
+            query: this.searchQuery,
+            page: this.searchPage
+        }).then((val) => {
+            // add new search results to existing search result data
+            searchResults === null || searchResults === void 0 ? void 0 : searchResults.results.push(...val.results);
+            htmless.rerender("search-results");
+        });
     }
     body() {
         return div(div(input
@@ -73,18 +98,13 @@ class SearchBox extends Component {
             let event = _event;
             if (event.keyCode === 13) {
                 (_a = document.getElementById("search-box")) === null || _a === void 0 ? void 0 : _a.blur();
-                api_get("search", {
-                    query: this.getSearchEntry(),
-                }).then((val) => {
-                    searchResults = val;
-                    this.hasSearchedYet = true;
-                    htmless.rerender("search-results");
-                });
+                this.searchQuery = this.getInputValue();
+                this.loadSearchResults();
             }
         })
             .onEvent("input", (event) => {
             api_get("search-suggestions", {
-                query: this.getSearchEntry(),
+                query: this.getInputValue(),
             }).then((suggestions) => {
                 this.searchSuggestions = suggestions;
                 htmless.rerender("suggestions");

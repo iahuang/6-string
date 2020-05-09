@@ -38,6 +38,10 @@ class SearchBox extends Component {
     searchSuggestions: string[];
     hideSearchSuggestions = false; // hide search suggestions when input is not focused
     hasSearchedYet = false;
+
+    searchPage = 1;
+    searchQuery = "";
+
     constructor() {
         super();
         this.searchSuggestions = [];
@@ -73,19 +77,46 @@ class SearchBox extends Component {
                     ...searchResults.results.map(
                         (result) => new SearchResult(result)
                     )
-                )
+                ),
+                button("load more").onClick(()=>{
+                    this.loadNextPageSearchResults();
+                })
             );
         } else {
             return div("No results found");
         }
     }
-    getSearchEntry() {
+    getInputValue() {
         return (document.getElementById("search-box")! as HTMLInputElement)
             .value;
     }
     setSearchEntry(to: string) {
         (document.getElementById("search-box")! as HTMLInputElement).value = to;
     }
+
+    loadSearchResults() {
+        api_get("search", {
+            query: this.searchQuery,
+            page: 1
+        }).then((val: ProcessedSearchResults) => {
+            searchResults = val;
+            this.hasSearchedYet = true;
+            htmless.rerender("search-results");
+        });
+    }
+
+    loadNextPageSearchResults() {
+        this.searchPage+=1;
+        api_get("search", {
+            query: this.searchQuery,
+            page: this.searchPage
+        }).then((val: ProcessedSearchResults) => {
+            // add new search results to existing search result data
+            searchResults?.results.push(...val.results);
+            htmless.rerender("search-results");
+        });
+    }
+
     body() {
         return div(
             div(
@@ -98,18 +129,13 @@ class SearchBox extends Component {
                         let event = _event as KeyboardEvent;
                         if (event.keyCode === 13) {
                             document.getElementById("search-box")?.blur();
-                            api_get("search", {
-                                query: this.getSearchEntry(),
-                            }).then((val: ProcessedSearchResults) => {
-                                searchResults = val;
-                                this.hasSearchedYet = true;
-                                htmless.rerender("search-results");
-                            });
+                            this.searchQuery = this.getInputValue();
+                            this.loadSearchResults();
                         }
                     })
                     .onEvent("input", (event) => {
                         api_get("search-suggestions", {
-                            query: this.getSearchEntry(),
+                            query: this.getInputValue(),
                         }).then((suggestions) => {
                             this.searchSuggestions = suggestions;
                             htmless.rerender("suggestions");

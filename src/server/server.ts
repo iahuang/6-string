@@ -17,7 +17,7 @@ export class SixString {
 
         // init api endpoints
         this.apiGetEndpoint("search", (query) => {
-            let searchResults = search(query.query, 1);
+            let searchResults = search(query.query, query.page);
             return searchResults;
         });
 
