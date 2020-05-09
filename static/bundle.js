@@ -28,11 +28,16 @@ class SearchBox extends Component {
     }
     renderSuggestionsBox() {
         if (this.searchSuggestions.length && !this.hideSearchSuggestions) {
+            let parent = document.getElementById("search-box");
             return div(...this.searchSuggestions.map((s) => span(s)))
                 .class("suggestions")
-                .onClick((event) => {
+                .onEvent("mousedown", (event) => {
                 let el = event.target;
                 this.setSearchEntry(el.innerText);
+            })
+                .style({
+                top: (parent === null || parent === void 0 ? void 0 : parent.getBoundingClientRect().bottom) + "px",
+                left: (parent === null || parent === void 0 ? void 0 : parent.getBoundingClientRect().left) + "px",
             });
         }
         else {
@@ -90,9 +95,12 @@ class SearchBox extends Component {
             htmless.rerender("suggestions");
         })
             .onEvent("blur", (event) => {
-            this.hideSearchSuggestions = true;
-            htmless.rerender("suggestions");
-        })
+            // close the search bar after 100ms so that if the suggestions overlay is clicked it has time to register
+            setTimeout(() => {
+                this.hideSearchSuggestions = true;
+                htmless.rerender("suggestions");
+            }, 100);
+        }, false)
             .style({ marginBottom: "20px" }), inlineComponent(() => div(this.renderSuggestionsBox())).id("suggestions")), inlineComponent(() => this.renderSearchResults()).id("search-results"));
     }
 }
