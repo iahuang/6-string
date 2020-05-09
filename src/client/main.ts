@@ -55,7 +55,6 @@ class SearchBox extends Component {
                 .onEvent("mousedown", (event) => {
                     let el = event.target as HTMLElement;
                     this.setSearchEntry(el.innerText);
-                    this.loadSearchResults();
                 })
                 .style({
                     top: parent?.getBoundingClientRect().bottom + "px",
