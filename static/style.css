@@ -75,6 +75,18 @@ button:hover {
     background-color: var(--hover);
 }
 
+.fade-in {
+    animation: fadeIn ease 1s;
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 .color-1 {
     color: var(--color1);
 }

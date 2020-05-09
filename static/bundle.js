@@ -15,10 +15,11 @@ class SearchResult extends Component {
         });
         return div(div(span(hyperlink(this.artistName)
             .href(this.artistUrl)
-            .class("color-1"), span(" – ").class("diminished"), span(this.songName))).class("search-result-song-info"), div(...catgoryButtons).class("search-result-categories")).class("search-result-box");
+            .class("color-1"), span(" – ").class("diminished"), span(this.songName))).class("search-result-song-info"), div(...catgoryButtons).class("search-result-categories"))
+            .class("search-result-box")
+            .class("fade-in");
     }
 }
-let searchResults = null;
 class SearchBox extends Component {
     constructor() {
         super();
@@ -46,14 +47,17 @@ class SearchBox extends Component {
             return null;
         }
     }
-    renderSearchResults() {
-        if (!this.hasSearchedYet) {
-            return div(null);
-        }
+    renderSearchResults(searchResults) {
         if (searchResults) {
-            return div(span(`${searchResults.numberTotalResults} results found`).class("diminished"), div(...searchResults.results.map((result) => new SearchResult(result))), button("load more").onClick(() => {
+            return div(
+            // span(`${searchResults.numberTotalResults} results found`).class(
+            //     "diminished"
+            // ),
+            div(...searchResults.results.map((result) => new SearchResult(result))), button("load more")
+                .onClick(() => {
                 this.loadNextPageSearchResults();
-            }));
+            })
+                .id("load-more-button"));
         }
         else {
             return div("No results found");
@@ -66,25 +70,32 @@ class SearchBox extends Component {
     setSearchEntry(to) {
         document.getElementById("search-box").value = to;
     }
+    addPage(searchResults) {
+        var _a, _b;
+        console.log(this.renderSearchResults(searchResults).render());
+        (_a = document.getElementById("load-more-button")) === null || _a === void 0 ? void 0 : _a.remove();
+        (_b = document
+            .getElementById("search-result-container")) === null || _b === void 0 ? void 0 : _b.appendChild(this.renderSearchResults(searchResults).render());
+    }
     loadSearchResults() {
         api_get("search", {
             query: this.searchQuery,
-            page: 1
+            page: 1,
         }).then((val) => {
-            searchResults = val;
+            this.addPage(val);
             this.hasSearchedYet = true;
-            htmless.rerender("search-results");
+            //htmless.rerender("search-results");
         });
     }
     loadNextPageSearchResults() {
         this.searchPage += 1;
         api_get("search", {
             query: this.searchQuery,
-            page: this.searchPage
+            page: this.searchPage,
         }).then((val) => {
             // add new search results to existing search result data
-            searchResults === null || searchResults === void 0 ? void 0 : searchResults.results.push(...val.results);
-            htmless.rerender("search-results");
+            this.addPage(val);
+            //htmless.rerender("search-results");
         });
     }
     body() {
@@ -121,7 +132,7 @@ class SearchBox extends Component {
                 htmless.rerender("suggestions");
             }, 100);
         }, false)
-            .style({ marginBottom: "20px" }), inlineComponent(() => div(this.renderSuggestionsBox())).id("suggestions")), inlineComponent(() => this.renderSearchResults()).id("search-results"));
+            .style({ marginBottom: "20px" }), inlineComponent(() => div(this.renderSuggestionsBox())).id("suggestions")), div().id("search-result-container"));
     }
 }
 let app = div(div(headers.h1("Ultimate Guitar"), new SearchBox()).class("search"), div("This site is not affiliated with ultimate-guitar.com").class("footer")).class("app");

@@ -28,11 +28,11 @@ class SearchResult extends Component implements SongResult {
                 )
             ).class("search-result-song-info"),
             div(...catgoryButtons).class("search-result-categories")
-        ).class("search-result-box");
+        )
+            .class("search-result-box")
+            .class("fade-in");
     }
 }
-
-let searchResults: ProcessedSearchResults | null = null;
 
 class SearchBox extends Component {
     searchSuggestions: string[];
@@ -64,28 +64,28 @@ class SearchBox extends Component {
             return null;
         }
     }
-    renderSearchResults() {
-        if (!this.hasSearchedYet) {
-            return div(null);
-        }
+    renderSearchResults(searchResults: ProcessedSearchResults) {
         if (searchResults) {
             return div(
-                span(`${searchResults.numberTotalResults} results found`).class(
-                    "diminished"
-                ),
+                // span(`${searchResults.numberTotalResults} results found`).class(
+                //     "diminished"
+                // ),
                 div(
                     ...searchResults.results.map(
                         (result) => new SearchResult(result)
                     )
                 ),
-                button("load more").onClick(()=>{
-                    this.loadNextPageSearchResults();
-                })
+                button("load more")
+                    .onClick(() => {
+                        this.loadNextPageSearchResults();
+                    })
+                    .id("load-more-button")
             );
         } else {
             return div("No results found");
         }
     }
+
     getInputValue() {
         return (document.getElementById("search-box")! as HTMLInputElement)
             .value;
@@ -94,26 +94,33 @@ class SearchBox extends Component {
         (document.getElementById("search-box")! as HTMLInputElement).value = to;
     }
 
+    addPage(searchResults: ProcessedSearchResults) {
+        console.log(this.renderSearchResults(searchResults).render());
+        document.getElementById("load-more-button")?.remove();
+        document
+            .getElementById("search-result-container")
+            ?.appendChild(this.renderSearchResults(searchResults).render());
+    }
     loadSearchResults() {
         api_get("search", {
             query: this.searchQuery,
-            page: 1
+            page: 1,
         }).then((val: ProcessedSearchResults) => {
-            searchResults = val;
+            this.addPage(val);
             this.hasSearchedYet = true;
-            htmless.rerender("search-results");
+            //htmless.rerender("search-results");
         });
     }
 
     loadNextPageSearchResults() {
-        this.searchPage+=1;
+        this.searchPage += 1;
         api_get("search", {
             query: this.searchQuery,
-            page: this.searchPage
+            page: this.searchPage,
         }).then((val: ProcessedSearchResults) => {
             // add new search results to existing search result data
-            searchResults?.results.push(...val.results);
-            htmless.rerender("search-results");
+            this.addPage(val);
+            //htmless.rerender("search-results");
         });
     }
 
@@ -161,9 +168,7 @@ class SearchBox extends Component {
                     "suggestions"
                 )
             ),
-            inlineComponent(() => this.renderSearchResults()).id(
-                "search-results"
-            )
+            div().id("search-result-container")
         );
     }
 }
