@@ -292,6 +292,8 @@ export class UGTab {
     songName: string;
     songArtist: string;
     sections: TabSection[] = [];
+    searchUrl: string; // the UG link if you wanted to search for this song
+
     constructor(pageData: UGTabPageData) {
         // Load and parse tab data from a the page data inside js-store
         this.info = {
@@ -302,6 +304,10 @@ export class UGTab {
         };
         this.songArtist = pageData.tab.artist_name;
         this.songName = pageData.tab.song_name;
+
+        this.searchUrl = pageData.tab_view.tab_search_link;
+
+        // fs.writeFileSync(this.fullSongName+".all.json", JSON.stringify(pageData));
 
         this.sections = parseSections(pageData.tab_view.wiki_tab.content).map(
             (parsedSection) => {

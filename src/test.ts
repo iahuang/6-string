@@ -3,4 +3,4 @@ import fs from "fs";
 import { transpose, autoTransposeChords } from "./chord_utils";
 import { search } from "./ug/ug_query";
 
-console.log(autoTransposeChords(["B", "C#", "F#", "Bm", "E", "G#"]))
+debugTabPageDump("https://tabs.ultimate-guitar.com/tab/joji/run-chords-2982086")

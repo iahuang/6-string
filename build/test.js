@@ -1,4 +1,4 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const chord_utils_1 = require("./chord_utils");
-console.log(chord_utils_1.autoTransposeChords(["B", "C#", "F#", "Bm", "E", "G#"]));
+const ug_tab_1 = require("./ug/ug_tab");
+ug_tab_1.debugTabPageDump("https://tabs.ultimate-guitar.com/tab/joji/run-chords-2982086");
