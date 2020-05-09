@@ -12,6 +12,11 @@ export class SixString {
             res.sendFile(this.staticDir + "/index.html");
         });
 
+        // http://localhost:5000/tab/joji/slow-dancing-in-the-dark-chords-2470894
+        this.app.get("/tab/:artist/:name", (req, res)=>{
+            res.json(req.params);
+        });
+
         // set static path
         this.app.use(express.static(this.staticDir));
 
