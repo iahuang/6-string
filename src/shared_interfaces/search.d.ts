@@ -6,4 +6,5 @@ declare interface SongResult {
 }
 declare interface ProcessedSearchResults {
     results: SongResult[];
+    numberTotalResults: number;
 }

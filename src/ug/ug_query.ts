@@ -108,6 +108,7 @@ function processSearchResults(
 
     let output: ProcessedSearchResults = {
         results: [],
+        numberTotalResults: pageData.results_count
     };
 
     // get the highest rated song of each category and add it to the final output

@@ -94,6 +94,7 @@ function processSearchResults(pageData) {
     }
     let output = {
         results: [],
+        numberTotalResults: pageData.results_count
     };
     // get the highest rated song of each category and add it to the final output
     for (let [songIdentifier, categories] of Object.entries(songs)) {

@@ -32,7 +32,7 @@ class SearchResult extends Component implements SongResult {
     }
 }
 
-let searchResults: SearchResult[] = [];
+let searchResults: ProcessedSearchResults | null = null;
 
 class SearchBox extends Component {
     searchSuggestions: string[];
@@ -64,12 +64,16 @@ class SearchBox extends Component {
         if (!this.hasSearchedYet) {
             return div(null);
         }
-        if (searchResults.length) {
+        if (searchResults) {
             return div(
-                span(`${searchResults.length} results found`).class(
+                span(`${searchResults.numberTotalResults} results found`).class(
                     "diminished"
                 ),
-                div(...searchResults)
+                div(
+                    ...searchResults.results.map(
+                        (result) => new SearchResult(result)
+                    )
+                )
             );
         } else {
             return div("No results found");
@@ -97,9 +101,7 @@ class SearchBox extends Component {
                             api_get("search", {
                                 query: this.getSearchEntry(),
                             }).then((val: ProcessedSearchResults) => {
-                                searchResults = val.results.map(
-                                    (result) => new SearchResult(result)
-                                );
+                                searchResults = val;
                                 this.hasSearchedYet = true;
                                 htmless.rerender("search-results");
                             });
@@ -117,13 +119,17 @@ class SearchBox extends Component {
                         this.hideSearchSuggestions = false;
                         htmless.rerender("suggestions");
                     })
-                    .onEvent("blur", (event) => {
-                        // close the search bar after 100ms so that if the suggestions overlay is clicked it has time to register
-                        setTimeout(() => {
-                            this.hideSearchSuggestions = true;
-                            htmless.rerender("suggestions");
-                        }, 100);
-                    }, false)
+                    .onEvent(
+                        "blur",
+                        (event) => {
+                            // close the search bar after 100ms so that if the suggestions overlay is clicked it has time to register
+                            setTimeout(() => {
+                                this.hideSearchSuggestions = true;
+                                htmless.rerender("suggestions");
+                            }, 100);
+                        },
+                        false
+                    )
                     .style({ marginBottom: "20px" }),
                 inlineComponent(() => div(this.renderSuggestionsBox())).id(
                     "suggestions"

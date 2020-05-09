@@ -18,7 +18,7 @@ class SearchResult extends Component {
             .class("color-1"), span(" – ").class("diminished"), span(this.songName))).class("search-result-song-info"), div(...catgoryButtons).class("search-result-categories")).class("search-result-box");
     }
 }
-let searchResults = [];
+let searchResults = null;
 class SearchBox extends Component {
     constructor() {
         super();
@@ -48,8 +48,8 @@ class SearchBox extends Component {
         if (!this.hasSearchedYet) {
             return div(null);
         }
-        if (searchResults.length) {
-            return div(span(`${searchResults.length} results found`).class("diminished"), div(...searchResults));
+        if (searchResults) {
+            return div(span(`${searchResults.numberTotalResults} results found`).class("diminished"), div(...searchResults.results.map((result) => new SearchResult(result))));
         }
         else {
             return div("No results found");
@@ -76,7 +76,7 @@ class SearchBox extends Component {
                 api_get("search", {
                     query: this.getSearchEntry(),
                 }).then((val) => {
-                    searchResults = val.results.map((result) => new SearchResult(result));
+                    searchResults = val;
                     this.hasSearchedYet = true;
                     htmless.rerender("search-results");
                 });
