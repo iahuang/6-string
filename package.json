@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev:cmp_server": "tsc --watch",
+    "dev:cmp_client": "tsc --watch -p src/client",
+    "watch": "npm-run-all -p dev:*",
+    "run_server": "node build/start_server.js"
+
   },
   "author": "",
   "license": "ISC",
@@ -18,5 +22,8 @@
     "jsdom": "^16.2.2",
     "lodash": "^4.17.15",
     "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
   }
 }

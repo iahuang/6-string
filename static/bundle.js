@@ -37,6 +37,7 @@ class SearchBox extends Component {
                 .onEvent("mousedown", (event) => {
                 let el = event.target;
                 this.setSearchEntry(el.innerText);
+                this.loadSearchResults();
             })
                 .style({
                 top: (parent === null || parent === void 0 ? void 0 : parent.getBoundingClientRect().bottom) + "px",
