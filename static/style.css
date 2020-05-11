@@ -58,6 +58,10 @@ a {
     text-decoration: none;
 }
 
+a:hover {
+    filter: brightness(120%);
+}
+
 button {
     background-color: var(--bg2);
     border: none;
