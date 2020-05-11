@@ -1,29 +1,28 @@
 {
-  "name": "guitar",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "dev:cmp_server": "tsc --watch",
-    "dev:cmp_client": "tsc --watch -p src/client",
-    "watch": "npm-run-all -p dev:*",
-    "run_server": "node build/start_server.js"
-
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@types/express": "^4.17.6",
-    "@types/jsdom": "^16.2.1",
-    "@types/lodash": "^4.14.150",
-    "@types/node": "^13.13.4",
-    "@types/node-fetch": "^2.5.7",
-    "express": "^4.17.1",
-    "jsdom": "^16.2.2",
-    "lodash": "^4.17.15",
-    "node-fetch": "^2.6.0"
-  },
-  "devDependencies": {
-    "npm-run-all": "^4.1.5"
-  }
+    "name": "guitar",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev:cmp_server": "tsc --watch",
+        "dev:cmp_client": "tsc --watch -p src/client",
+        "watch": "npm-run-all -p dev:*",
+        "run_server": "node build/start_server.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@types/express": "^4.17.6",
+        "@types/jsdom": "^16.2.1",
+        "@types/lodash": "^4.14.150",
+        "@types/node": "^13.13.4",
+        "@types/node-fetch": "^2.5.7",
+        "express": "^4.17.1",
+        "jsdom": "^16.2.2",
+        "lodash": "^4.17.15",
+        "node-fetch": "^2.6.0"
+    },
+    "devDependencies": {
+        "npm-run-all": "^4.1.5"
+    }
 }

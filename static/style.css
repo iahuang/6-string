@@ -1,13 +1,13 @@
 :root {
-    --bg: #1a222b;
-    --bg2: #2f3c49;
-    --bg3: #171f27;
+    --bg: #191b27;
+    --bg2: #232536;
+    --bg3: #151722;
     --text: #f9f8f8;
     --text2: rgb(214, 214, 214);
     --text3: rgb(185, 180, 180);
     --color1: #f3de8a;
-    --color2: #eb9486;
-    --hover: #3b4b5a;
+    --color2: #ca86bf;
+    --hover: #1c1e2c;
 }
 
 body {

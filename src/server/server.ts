@@ -7,9 +7,9 @@ export class SixString {
     constructor() {
         this.app = express.default();
 
-        // make site root serve index.html
+        // make site root serve search page
         this.app.get("/", (req, res) => {
-            res.sendFile(this.staticDir + "/index.html");
+            res.sendFile(this.staticDir + "/search.html");
         });
 
         // http://localhost:5000/tab/joji/slow-dancing-in-the-dark-chords-2470894
