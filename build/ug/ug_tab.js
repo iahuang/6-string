@@ -27,23 +27,52 @@ function getLineType(line) {
         : "lyric";
 }
 function parseWordsFromLine(line) {
+    // "mary had   a   little  lamb" -> ["mary", "had", "a", "little", "lamb"]
     return line.match(/\S+/g);
 }
 function parseChordsFromLine(line) {
+    // "[ch]Em[/ch]   [ch]Am[/ch]  " -> ["Em", "Am"]
     return line.match(/(?<=\])[\w\/#]+(?=\[)/g);
 }
 function matchChordsToLyrics(lyricsLine, chordsLine) {
-    // remove [ch] and [/ch] markings
+    /*
+
+        -- simplified overview of this fucntion --
+
+        chords: "E    Am    G      D   "
+        lyrics: "mary had a little lamb"
+
+        output:
+
+        chords: [
+            E at word 0 ("mary"),
+            Am at word 1 ("had"),
+            G at word 3 ("little"),
+            D at word 4 ("lamb")
+        ]
+        words: [
+            "mary",
+            "had",
+            "a",
+            "little",
+            "lamb"
+        ]
+
+    */
+    // remove [ch] and [/ch] markings because they affect the position of the chord in the string
     chordsLine = chordsLine.replace(/\[\/?ch\]/g, "");
     // i need to convert these into arrays because for some reason i can only for..of over them once
-    let chordMatches = Array.from(chordsLine.matchAll(/\S+/g));
+    let chordMatches = Array.from(chordsLine.matchAll(/\S+/g)); // we don't use parseChordsFromLine anymore since we just removed all the [ch] markings
     let wordMatches = Array.from(lyricsLine.matchAll(/\S+/g));
     let chords = [];
     for (let chordMatch of chordMatches) {
         let chordPos = chordMatch.index; // where in the string does the chord appear
+        // if previousWordPosition is null, that means the chord becomes before any words in the lyrics line
         let previousWordPosition = null;
-        let i = 0;
+        let i = 0; // word index
         for (let wordMatch of wordMatches) {
+            // if the chord appears after the start of the word
+            // then the chord must be linked to that word (or maybe the next one we dont know yet)
             if (wordMatch.index <= chordPos) {
                 previousWordPosition = i;
             }
@@ -71,12 +100,34 @@ function preRemoveTabs(text) {
     return { text: text.replace(tabPattern, ""), tabs: Array.from(tabs) };
 }
 function parseTabs(tabLines) {
-    // the regex returns a trailing newline so we should remove any blank lines
-    //tabLines = tabLines.filter(line=>line!=="");
+    /*
+        tabLines is an ascii tab like this, but split on every newline:
+
+        e|---------------------------------------------------------------------------|
+        B|-------0------------0------------0-----------------------------------------|
+        G|-----0---0--------2---2--------0---0---------------------------------------|
+        D|---2-------2----1-------1----0-------0-------------------------------------|
+        A|---------------------------------------3-2-0-------------------------------|
+        E|-0------------2------------3-----------------3-----------------------------|
+    */
+    /*
+
+        note from future me:
+
+        This function internally represents tab data with the index of the guitar string (like "0")
+        but returns the name of the guitar string (like "E"). this is why you dont write code
+        while sleep deprived
+
+        this function "just works" and you probably shouldnt touch it or think too much
+        about why it works
+
+    */
+    // strings as in a guitar string
     let strings = tabLines.map((line) => line.match(/[a-gA-G](?=\|)/g)[0]); // extract the "e" from "e|-----------...----|"
     let notePositions = {};
     // parse out notes into their positions along in the tab string
     let stringNumber = 0;
+    // note from future me: idk wtf this loop does gl
     for (let line of tabLines) {
         for (let note of line.matchAll(/(?<=-)[\w\/\\\.~]+/g)) {
             let pos = note.index;
@@ -220,13 +271,16 @@ class UGTab {
         this.songName = pageData.tab.song_name;
         this.searchUrl = pageData.tab_view.tab_search_link;
         // fs.writeFileSync(this.fullSongName+".all.json", JSON.stringify(pageData));
+        // parse out all the sections and their string contents
         this.sections = parseSections(pageData.tab_view.wiki_tab.content).map((parsedSection) => {
             let sectionName = parsedSection.name;
             let sectionContentString = parsedSection.content;
+            // parse the string contents into lyrical bits and ascii tabs
             let { lines, tabStrings } = parseSectionContent(sectionContentString);
             return {
                 name: sectionName,
                 lines: lines,
+                // parse the ascii tabs into usable data
                 tabs: tabStrings.map((tab) => parseTabs(tab.split("\n"))),
             };
         });
