@@ -106,9 +106,12 @@ function processSearchResults(
         };
     }
 
+
     let output: ProcessedSearchResults = {
         results: [],
-        numberTotalResults: pageData.results_count
+        numberTotalResults: pageData.results_count,
+        totalPages: pageData.pagination.total,
+        currentPage: pageData.pagination.current
     };
 
     // get the highest rated song of each category and add it to the final output
@@ -142,13 +145,31 @@ function processSearchResults(
 }
 
 export async function search(query: string, page: number) {
-    return processSearchResults(
+    let searchResults = processSearchResults(
         await loadStoreData(
             `https://www.ultimate-guitar.com/search.php?search_type=title&value=${encodeURI(
                 query
             )}&page=${page}`
         )
     );
+
+    // basically sometimes the full results of the last song on the list get cut off by the page boundary
+    // which means that the client will often load two copies of the same song (one for each
+    // portion on the page)
+    // when this happens, ultimateguitar will put the whole song list on the next page
+    // including the first part from the previous page
+
+    // therefore we should remove the last song on the list (as it might be incomplete)
+    // but only if there's a next page
+    
+    if (searchResults.currentPage < searchResults.totalPages) {
+        // we also don't want to remove the only song on the list if there's only one
+        if (searchResults.results.length > 1) {
+            searchResults.results.pop(); // remove the last element from the array
+        }
+    }
+    
+    return searchResults;
 }
 
 export async function searchAutocomplete(query: string) {
