@@ -35,9 +35,12 @@ class SearchBox extends Component {
             return div(...this.searchSuggestions.map((s) => span(s)))
                 .class("suggestions")
                 .onEvent("mousedown", (event) => {
+                var _a;
                 let el = event.target;
                 this.setSearchEntry(el.innerText);
+                this.searchQuery = this.getInputValue();
                 this.loadSearchResults();
+                (_a = document.getElementById("search-box")) === null || _a === void 0 ? void 0 : _a.blur();
             })
                 .style({
                 top: (parent === null || parent === void 0 ? void 0 : parent.getBoundingClientRect().bottom) + "px",
